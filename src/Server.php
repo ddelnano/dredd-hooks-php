@@ -17,7 +17,7 @@ class Server {
 
     public function run()
     {
-        $this->killProgramsOnDreddPort();
+//        $this->killProgramsOnDreddPort();
 
         $server = stream_socket_server(self::SOCKET, $errno, $errorMessage);
 
@@ -118,9 +118,6 @@ class Server {
         stream_socket_sendto($client, $messageToSend . self::MESSAGE_END);
     }
 
-    /**
-     * @param $matches
-     */
     private function killProgramsOnDreddPort()
     {
         // get any programs running on the dredd port
