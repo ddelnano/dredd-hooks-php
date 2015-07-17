@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+use Dredd\Server;
+use Dredd\Hooks;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+Hooks::loadHooks($argv);
+
+$server = new Server();
+
+fprintf(STDOUT, "Starting server\n");
+flush();
+
+$server->run();
