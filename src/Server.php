@@ -17,6 +17,8 @@ class Server {
 
     public function run()
     {
+        $this->killProgramsOnDreddPort();
+
         $server = stream_socket_server(self::SOCKET, $errno, $errorMessage);
 
         if ($server === false) {
@@ -114,5 +116,22 @@ class Server {
         $messageToSend = json_encode($messageToSend);
 
         stream_socket_sendto($client, $messageToSend . self::MESSAGE_END);
+    }
+
+    /**
+     * @param $matches
+     */
+    private function killProgramsOnDreddPort()
+    {
+        // get any programs running on the dredd port
+        $string = shell_exec("lsof -i tcp:61321");
+
+        $regex = '/(?:php\s*)(\d*)/';
+
+        // get matches if any programs are returned
+        preg_match($regex, $string, $matches);
+
+        // execute kill command so server can listen on port
+        shell_exec("kill -9 {$matches[1]}");
     }
 }
