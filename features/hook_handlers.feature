@@ -25,11 +25,12 @@ Feature: Hook handlers
       """
       <?php
 
+      $key = '';
       use Dredd\Hooks;
 
       Hooks::before('/message > GET', function(&$transaction) use ($key) {
 
-          echo "before hook handled";
+          var_dump("before hook handled");
       });
 
       Hooks::after('/message > GET', function(&$transaction) use ($key) {
