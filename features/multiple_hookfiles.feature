@@ -29,7 +29,8 @@ Feature: Multiple hook files with a glob
 
         Hooks::before("/message > GET", function($transaction) {
 
-            echo "It's me, File1";
+            fprintf(STDOUT, "It's me, File1");
+            flush();
         });
       """
     And a file named "hooks/hookfile2.php" with:
@@ -40,7 +41,8 @@ Feature: Multiple hook files with a glob
 
         Hooks::before("/message > GET", function($transaction) {
 
-            echo "It's me, File2";
+            fprintf(STDOUT, "It's me, File2");
+            flush();
         });
       """
     And a file named "hooks/hookfile_to_be_globed.php" with:
@@ -51,7 +53,8 @@ Feature: Multiple hook files with a glob
 
         Hooks::before("/message > GET", function($transaction) {
 
-            echo "It's me, File3";
+            fprintf(STDOUT, "It's me, File3");
+            flush();
         });
       """
     When I run `dredd ./apiary.apib http://localhost:4567 --server "ruby server.rb" --language dredd-hooks-php --hookfiles hooks/hookfile1.php --hookfiles hooks/hookfile2.php --hookfiles hooks/hookfile_*.php`
