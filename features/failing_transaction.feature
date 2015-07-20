@@ -29,7 +29,7 @@ Feature: Failing a transaction
 
       Hooks::before("/message > GET", function(&$transaction) {
 
-          $transaction->failed = "Yay! Failed!";
+          $transaction->fail = true;
           echo "Yay! Failed!";
       });
       """
