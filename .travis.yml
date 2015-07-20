@@ -9,5 +9,5 @@ php:
   - "5.6"
 
 script:
-  - cucumber
+  - bundle exec cucumber
   - vendor/bin/phpunit    
