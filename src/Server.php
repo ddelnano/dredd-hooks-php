@@ -67,33 +67,21 @@ class Server {
         $data = $message->data;
         $uuid = $message->uuid;
 
-        if ($event == "before") {
-
-            $data = $this->runner->runBeforeHooksForTransaction($data);
-        }
-
-        if ($event == "beforeValidation") {
-
-            $data = $this->runner->runBeforeValidationHooksForTransaction($data);
-        }
-
-        if ($event == "after") {
-
-            $data = $this->runner->runAfterHooksForTransaction($data);
-        }
-
         if ($event == "beforeEach") {
 
             $data = $this->runner->runBeforeEachHooksForTransaction($data);
+            $data = $this->runner->runBeforeHooksForTransaction($data);
         }
 
         if ($event == "beforeEachValidation") {
 
             $data = $this->runner->runBeforeEachValidationHooksForTransaction($data);
+            $data = $this->runner->runBeforeValidationHooksForTransaction($data);
         }
 
         if ($event == "afterEach") {
 
+            $data = $this->runner->runAfterHooksForTransaction($data);
             $data = $this->runner->runAfterEachHooksForTransaction($data);
         }
 
