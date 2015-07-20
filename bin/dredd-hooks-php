@@ -4,6 +4,9 @@
 use Dredd\Server;
 use Dredd\Hooks;
 
+ini_set('implicit_flush', 'on');
+ini_set('output_buffering', 'off');
+
 require __DIR__ . '/../vendor/autoload.php';
 
 Hooks::loadHooks($argv);
