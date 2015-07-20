@@ -51,6 +51,17 @@ class Runner {
 
         if ( ! property_exists(Hooks::class, $propertyName)) throw new RuntimeException("Invalid property {$propertyName} trying to be accessed");
 
-        return (strpos($propertyName, 'All') || strpos($propertyName, 'Each')) ? Hooks::${$propertyName} : Hooks::${$propertyName}[$transaction->name];
+        if (strpos($propertyName, 'All') || strpos($propertyName, 'Each')) {
+
+            return Hooks::${$propertyName};
+        }
+
+
+        else if (array_key_exists($transaction->name, Hooks::${$propertyName})) {
+
+            return Hooks::${$propertyName}[$transaction->name];
+        }
+
+        return [];
     }
 }
