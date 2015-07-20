@@ -22,21 +22,21 @@ class Hooks {
 
     public static function before($transactionName, callable $function)
     {
-        self::$beforeHooks[$transactionName] = [];
+        if ( ! array_key_exists($transactionName, self::$beforeHooks)) self::$beforeHooks[$transactionName] = [];
 
         self::$beforeHooks[$transactionName][] = $function;
     }
 
     public static function beforeValidation($transactionName, callable $function)
     {
-        self::$beforeValidationHooks[$transactionName] = [];
+        if ( ! array_key_exists($transactionName, self::$beforeValidationHooks)) self::$beforeValidationHooks[$transactionName] = [];
 
         self::$beforeValidationHooks[$transactionName][] = $function;
     }
 
     public static function after($transactionName, callable $function)
     {
-        self::$afterHooks[$transactionName] = [];
+        if ( ! array_key_exists($transactionName, self::$afterHooks)) self::$afterHooks[$transactionName] = [];
 
         self::$afterHooks[$transactionName][] = $function;
     }
