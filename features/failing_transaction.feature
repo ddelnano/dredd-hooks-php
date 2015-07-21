@@ -1,4 +1,5 @@
 Feature: Failing a transaction
+  @announce
 
   Background:
     Given I have "dredd-hooks-php" command installed

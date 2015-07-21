@@ -1,4 +1,5 @@
 Feature: Hook handlers
+  @announce
 
   Background:
     Given I have "dredd-hooks-php" command installed

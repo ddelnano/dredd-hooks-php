@@ -1,4 +1,5 @@
 Feature: Multiple hook files with a glob
+  @announce
 
   Background:
     Given I have "dredd-hooks-php" command installed

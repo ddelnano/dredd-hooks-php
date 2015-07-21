@@ -1,4 +1,5 @@
 Feature: Execution order
+  @announce
 
   Background:
     Given I have "dredd-hooks-php" command installed
