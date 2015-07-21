@@ -1,5 +1,4 @@
 Feature: Execution order
-  @announce
 
   Background:
     Given I have "dredd-hooks-php" command installed
@@ -21,6 +20,7 @@ Feature: Execution order
       """
 
   @debug
+  @announce-output
   Scenario:
     Given a file named "hooks/execution_order_hookfile.php" with:
       """

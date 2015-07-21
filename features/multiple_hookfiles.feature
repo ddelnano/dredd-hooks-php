@@ -1,5 +1,4 @@
 Feature: Multiple hook files with a glob
-  @announce
 
   Background:
     Given I have "dredd-hooks-php" command installed
@@ -21,6 +20,7 @@ Feature: Multiple hook files with a glob
       """
 
   @debug
+  @announce-ouput
   Scenario:
     Given a file named "hooks/hookfile1.php" with:
       """

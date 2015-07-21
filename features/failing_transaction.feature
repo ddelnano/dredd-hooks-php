@@ -1,5 +1,4 @@
 Feature: Failing a transaction
-  @announce
 
   Background:
     Given I have "dredd-hooks-php" command installed
@@ -21,6 +20,7 @@ Feature: Failing a transaction
       """
 
   @debug
+  @announce-output
   Scenario:
     Given a file named "hooks/failedhook.php" with:
       """

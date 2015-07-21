@@ -1,5 +1,4 @@
 Feature: Hook handlers
-  @announce
 
   Background:
     Given I have "dredd-hooks-php" command installed
@@ -21,6 +20,7 @@ Feature: Hook handlers
       """
 
   @debug
+  @announce-output
   Scenario:
     Given a file named "hookfile.php" with:
       """
