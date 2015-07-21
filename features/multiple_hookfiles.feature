@@ -29,7 +29,7 @@ Feature: Multiple hook files with a glob
 
         Hooks::before("/message > GET", function($transaction) {
 
-            fprintf(STDOUT, "It's me, File1");
+            fprintf(STDERR, "It's me, File1");
             flush();
         });
       """
@@ -41,7 +41,7 @@ Feature: Multiple hook files with a glob
 
         Hooks::before("/message > GET", function($transaction) {
 
-            fprintf(STDOUT, "It's me, File2");
+            fprintf(STDERR, "It's me, File2");
             flush();
         });
       """
@@ -53,7 +53,7 @@ Feature: Multiple hook files with a glob
 
         Hooks::before("/message > GET", function($transaction) {
 
-            fprintf(STDOUT, "It's me, File3");
+            fprintf(STDERR, "It's me, File3");
             flush();
         });
       """
