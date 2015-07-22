@@ -1,6 +1,12 @@
 {
   "name": "ddelnano/dredd-hooks-php",
-  "description": "PHP hooks for the dredd testing tool",
+  "description": "PHP hooks for the Dredd testing tool",
+  "require": {
+    "php": ">=5.5"
+  },
+  "bin": [
+    "bin/dredd-hooks-php"
+  ],
   "require-dev": {
     "phpunit/phpunit": "~4.0",
     "mockery/mockery": "0.9.*"
