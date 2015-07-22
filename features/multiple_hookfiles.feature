@@ -19,8 +19,7 @@ Feature: Multiple hook files with a glob
           Hello World!
       """
 
-  @debug
-  @announce-ouput
+  @announce
   Scenario:
     Given a file named "hooks/hookfile1.php" with:
       """

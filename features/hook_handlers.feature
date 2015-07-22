@@ -19,8 +19,7 @@ Feature: Hook handlers
           Hello World!
       """
 
-  @debug
-  @announce-output
+  @announce
   Scenario:
     Given a file named "hookfile.php" with:
       """

@@ -19,8 +19,7 @@ Feature: Execution order
           Hello World!
       """
 
-  @debug
-  @announce-output
+  @announce
   Scenario:
     Given a file named "hooks/execution_order_hookfile.php" with:
       """

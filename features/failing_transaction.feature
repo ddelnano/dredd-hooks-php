@@ -19,8 +19,7 @@ Feature: Failing a transaction
           Hello World!
       """
 
-  @debug
-  @announce-output
+  @announce
   Scenario:
     Given a file named "hooks/failedhook.php" with:
       """
