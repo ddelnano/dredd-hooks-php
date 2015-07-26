@@ -101,8 +101,8 @@ More details about the integration test can be found in the [dredd-hooks-templat
 
 ##Further Details
 
-For examples and more information please visit the [wiki]()
+For examples and more information please visit the [wiki](https://github.com/ddelnano/dredd-hooks-php/wiki)
 
 # Todo
-- Add wiki
+- Add framework agnostic example/more examples
 - Explain entire dredd process to end user
