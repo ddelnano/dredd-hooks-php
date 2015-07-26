@@ -17,10 +17,78 @@ Hooks::beforeAll(function(&$transaction) {
     // set up database for tests
 });
 ```
+##Installing
+
+###Composer
+
+`dredd-hooks-php` can be easily installed through the use of [Composer](https://getcomposer.org/).
+
+`composer require dredd-hooks-php --dev`
+
+##Usage
+
+1. Create a hook file in `hooks.php`
+
+```php
+
+use Dredd\Hooks;
+
+Hooks::before("/test > GET", function(&$transaction) {
+
+    // do any before setup necessary
+});
+```
+
+**Very Important**  Please make sure the closure passed to any `Dredd\Hooks` method uses a reference for the `$transaction` variable!!
+This is necessary so that the `$transaction` variable does not need to be returned from the closure in order to persist changes to the variable
+in the closure's local scope.
 
 
+2. Run it with dredd
+
+`dredd apiary.apib localhost:3000 --language dredd-hooks-php --hookfiles ./hooks.php`
+
+##API
+
+The `Dredd\Hooks` class provides the following methods `before`, `after`, `before_all`, `after_all`, `before_each`, `after_each`, `before_validation`, and `before_each_validation`.
+These methods correspond to the events that Dredd will run as it makes requests to the API endpoints defined in the blueprint/apiary.apib file.
+The `before`, `before_validation` and `after` hooks are identified by [transaction name](http://dredd.readthedocs.org/en/latest/hooks/#getting-transaction-names)
+
+##How to Contribute
+
+1. Fork it
+2. Create your feature branch (git checkout -b my-newfeature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push (git push origin my-new-feature)
+5. Create a new Pull Request
+
+##Tests
+
+When making a contribution it is very important to not break existing functionality.  This project uses PHPUnit for unit testing and
+uses ruby based aruba.  
+ 
+The test suite can be run by following these steps:
+ 
+1. Install PHPUnit and cucumber locally. From the project root directory run
+
+   `composer install`
+   
+   `bundle install`
+   
+2. Execute PHPUnit tests
+   
+   `vendor/bin/phpunit`
+   
+3. Run aruba/cucumber tests
+   
+   `bundle exec cucumber`
+   
+More details about the integration test can be found in the [dredd-hooks-template repo](https://github.com/apiaryio/dredd-hooks-template)   
+
+##Further Details
+
+For examples and more information please visit the [wiki]()
 
 # Todo
-- Sample Laravel application
 - Add wiki
 - Explain entire dredd process to end user
