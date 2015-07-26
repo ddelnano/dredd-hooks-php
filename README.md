@@ -5,6 +5,20 @@
 This package contains a PHP Dredd hook handler which provides a bridge between the Dredd API Testing Framework and the PHP environment to allow for implementation of 
 testing hooks provided by Dredd in PHP.
 
+Not sure what these Dredd Hooks are?  Read the Dredd documentation on [them](http://dredd.readthedocs.org/en/latest/hooks/)
+
+The following are a few examples of what hooks can be used for:
+
+    - loading db fixtures
+    - cleanup after test step or steps
+    - handling authentication and sessions
+    - passing data between transactions (saving state from responses to stash)
+    - modifying request generated from blueprint
+    - changing generated expectations
+    - setting custom expectations
+    - debugging via logging stuff
+
+
 Example
 
 ```php
@@ -14,7 +28,7 @@ use Dredd\Hooks;
 
 Hooks::beforeAll(function(&$transaction) {
 
-    // set up database for tests
+    // do any necessary setup
 });
 ```
 ##Installing
