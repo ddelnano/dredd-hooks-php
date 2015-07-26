@@ -2,8 +2,8 @@
 [![Build Status](https://travis-ci.org/ddelnano/dredd-hooks-php.svg?branch=master)](https://travis-ci.org/ddelnano/dredd-hooks-php)
 
 ##About
-This package contains a PHP Dredd hook handler which provides a bridge between the Dredd API Testing Framework and the PHP environment to allow for implementation of 
-testing hooks provided by Dredd in PHP.
+This package contains a PHP Dredd hook handler which provides a bridge between the [Dredd API Testing Framework](http://dredd.readthedocs.org/en/latest/)
+ and PHP environment to ease implementation of testing hooks provided by [Dredd](http://dredd.readthedocs.org/en/latest/). Write Dredd hooks in PHP to glue together [API Blueprint](https://apiblueprint.org/) with your PHP project
 
 Not sure what these Dredd Hooks are?  Read the Dredd documentation on [them](http://dredd.readthedocs.org/en/latest/hooks/)
 
