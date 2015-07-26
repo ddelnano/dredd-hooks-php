@@ -1,0 +1,19 @@
+# My Api
+## GET /user
++ Response 200 (application/json;charset=utf-8)
+        {
+            "user": {
+                "name": "John Doe",
+                "age": 22
+            }
+        }
+## GET /users
++ Response 200 (application/json;charset=utf-8)
+        {
+            "users": [
+                {
+                    "name": "Dom",
+                    "email": "ddelnano@gmail.com"
+                }
+            ]
+        }

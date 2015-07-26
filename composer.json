@@ -1,12 +1,19 @@
 {
   "name": "ddelnano/dredd-hooks-php",
   "description": "PHP hooks for the Dredd testing tool",
+  "keywords": ["dredd"],
+  "homepage": "https://github.com/ddelnano/dredd-hooks-php/wiki",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Domenic Del Nano",
+      "email": "ddelnano@gmail.com"
+    }
+  ],
   "require": {
     "php": ">=5.5"
   },
-  "bin": [
-    "bin/dredd-hooks-php"
-  ],
+  "bin": ["bin/dredd-hooks-php"],
   "require-dev": {
     "phpunit/phpunit": "~4.0",
     "mockery/mockery": "0.9.*"
