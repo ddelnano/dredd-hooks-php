@@ -7,7 +7,7 @@ use Dredd\Hooks;
 ini_set('implicit_flush', 'on');
 ini_set('output_buffering', 'off');
 
-$autoloadPath = in_array("vendor/bin/dredd-hooks-php", $argv) ? __DIR__ . "/../autoload.php" : __DIR__ . "/../vendor/autoload.php";
+$autoloadPath = in_array("vendor/bin/dredd-hooks-php", $argv) ? __DIR__ . "/../../../autoload.php" : __DIR__ . "/../vendor/autoload.php";
 
 require $autoloadPath;
 

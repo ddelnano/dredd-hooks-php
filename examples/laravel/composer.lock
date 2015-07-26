@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3d17c63c7b4c74dc260c65a1f535226f",
+    "hash": "5f134e21819e731987b2a91f57fa5d49",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1802,16 +1802,16 @@
     "packages-dev": [
         {
             "name": "ddelnano/dredd-hooks-php",
-            "version": "0.1.1",
+            "version": "0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ddelnano/dredd-hooks-php.git",
-                "reference": "946fc673180f82e746ace8191adaa269404a2ed6"
+                "reference": "024d6fad7c451f1c5c86c751b0cd7fb79f2ff3a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ddelnano/dredd-hooks-php/zipball/946fc673180f82e746ace8191adaa269404a2ed6",
-                "reference": "946fc673180f82e746ace8191adaa269404a2ed6",
+                "url": "https://api.github.com/repos/ddelnano/dredd-hooks-php/zipball/024d6fad7c451f1c5c86c751b0cd7fb79f2ff3a3",
+                "reference": "024d6fad7c451f1c5c86c751b0cd7fb79f2ff3a3",
                 "shasum": ""
             },
             "require": {
@@ -1831,8 +1831,21 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Domenic Del Nano",
+                    "email": "ddelnano@gmail.com"
+                }
+            ],
             "description": "PHP hooks for the Dredd testing tool",
-            "time": "2015-07-22 18:01:55"
+            "homepage": "https://github.com/ddelnano/dredd-hooks-php/wiki",
+            "keywords": [
+                "dredd"
+            ],
+            "time": "2015-07-26 18:05:44"
         },
         {
             "name": "doctrine/instantiator",
@@ -3010,7 +3023,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "ddelnano/dredd-hooks-php": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
