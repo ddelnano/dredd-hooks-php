@@ -9,14 +9,14 @@ Not sure what these Dredd Hooks are?  Read the Dredd documentation on [them](htt
 
 The following are a few examples of what hooks can be used for:
 
-    - loading db fixtures
-    - cleanup after test step or steps
-    - handling authentication and sessions
-    - passing data between transactions (saving state from responses to stash)
-    - modifying request generated from blueprint
-    - changing generated expectations
-    - setting custom expectations
-    - debugging via logging stuff
+- loading db fixtures
+- cleanup after test step or steps
+- handling authentication and sessions
+- passing data between transactions (saving state from responses to stash)
+- modifying request generated from blueprint
+- changing generated expectations
+- setting custom expectations
+- debugging via logging stuff
 
 
 Example
