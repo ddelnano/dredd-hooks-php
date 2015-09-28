@@ -95,23 +95,22 @@ class Hooks {
         }
 
         $name = $transaction->name;
-        preg_match("/\\w+\\s*>/", str_replace(" ", "", $name), $tokens);
-
+        $tokens = explode(">", str_replace(" ", "", $name));
         $previous = '';
 
         foreach ($tokens as $token) {
 
-            if (array_key_exists($token, Hooks::${$propertyName})) {
+            $previous .= $token . ">";
 
-                $hooks = Hooks::${$propertyName}[$token];
+            if (array_key_exists($previous, Hooks::${$propertyName})) {
+
+                $hooks = Hooks::${$propertyName}[$previous];
 
                 foreach ($hooks as $hook) {
 
                     $callbacks[] = $hook;
                 }
             }
-
-            $previous .= $token;
         }
 
         if (array_key_exists($name, Hooks::${$propertyName})) {

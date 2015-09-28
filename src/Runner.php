@@ -50,52 +50,6 @@ class Runner {
     {
         $propertyName = $this->getPropertyNameFromMethodCall($method);
 
-//        $name = strpos($propertyName, 'All') || strpos($propertyName, 'Each') ? $transaction->name : null;
-
         return Hooks::getCallbacksForName($propertyName, $transaction);
     }
-
-//    private function getHooksFromMethodCall($method, $transaction)
-//    {
-//        $propertyName = $this->getPropertyNameFromMethodCall($method);
-//
-//        if ( ! property_exists(Hooks::class, $propertyName)) throw new RuntimeException("Invalid property {$propertyName} trying to be accessed");
-//
-//        if (strpos($propertyName, 'All') || strpos($propertyName, 'Each')) {
-//
-//            return Hooks::${$propertyName};
-//        }
-//
-//        else if ($this->hasWildcard($transaction->name) || array_key_exists($transaction->name, Hooks::${$propertyName})) {
-//
-//            return $this->getHookForTransaction($transaction->name, $propertyName);
-//        }
-//
-//        return [];
-//    }
-
-//    public function hasWildcard($name)
-//    {
-//        return strpos($name, "*") ? true : false;
-//    }
-
-//    public function getHookForTransaction($name, $propertyName)
-//    {
-//        $callbacks = [];
-//
-//        if ($this->hasWildcard($name)) {
-//
-//            // find all transaction names relevant and push them onto the array
-//            $tokens = explode("*", $name);
-//
-//            $name = trim($tokens[0]);
-//
-//            $callbacks[] = Hooks::${$propertyName}[$name];
-//
-//            return $callbacks;
-//        }
-//
-//        return Hooks::${$propertyName}[$name];
-//    }
-
 }
