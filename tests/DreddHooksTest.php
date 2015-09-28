@@ -4,6 +4,8 @@ use Dredd\Hooks;
 
 class DreddHooksTest extends PHPUnit_Framework_TestCase
 {
+    public $className = "Dredd\\Callback";
+
     public function tearDown()
     {
         Hooks::$beforeAllHooks = [];
@@ -45,5 +47,64 @@ class DreddHooksTest extends PHPUnit_Framework_TestCase
         });
 
         $this->assertCount(2, Hooks::$beforeHooks[$name]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_stores_wildcard_hooks_at_appropriate_index()
+    {
+        Hooks::after('Admin > *', function(&$transaction) {
+
+        });
+
+        $this->assertCount(1, Hooks::$afterHooks['Admin>']);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_get_hooks_without_names()
+    {
+        $transaction = new stdClass();
+        $transaction->name = 'Admin > ';
+
+        Hooks::beforeEach(function(&$transaction) {
+
+        });
+
+        $hooks = Hooks::getCallbacksForName('beforeEachHooks', $transaction);
+        $this->assertCount(1, $hooks);
+        $this->assertTrue(is_a($hooks[0], $this->className), sprintf("Expected %s received %s", $this->className, get_class($hooks[0])));
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_get_hooks_with_non_wildcard_names()
+    {
+        $transaction = new stdClass();
+        $transaction->name = 'Test';
+
+        Hooks::before('Test', function(&$transaction) {});
+
+        $hooks = Hooks::getCallbacksForName('beforeHooks', $transaction);
+        $this->assertCount(1, $hooks);
+        $this->assertTrue(is_a($hooks[0], $this->className), sprintf("Expected %s received %s", $this->className, get_class($hooks[0])));
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_get_hooks_with_wildcards()
+    {
+        $transaction = new stdClass();
+        $transaction->name = 'Admin > Test';
+
+        Hooks::before('Admin > *', function(&$transaction) {});
+
+        $hooks = Hooks::getCallbacksForName('beforeHooks', $transaction);
+        $this->assertCount(1, $hooks);
+        $this->assertTrue(is_a($hooks[0], $this->className), sprintf("Expected %s received %s", $this->className, get_class($hooks[0])));
     }
 }

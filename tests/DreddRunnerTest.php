@@ -199,4 +199,25 @@ class DreddRunnerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(true, $status->fail);
     }
 
+    /**
+     * @test
+     */
+    public function it_can_handle_one_level_of_wildcards_in_transaction_names()
+    {
+        $transactionName  = 'Admin > admin logs in';
+        $wildcardName = 'Admin > *';
+
+        $transaction = new stdClass();
+        $transaction->name = $transactionName;
+
+        Hooks::before($wildcardName, function(&$transaction)
+        {
+            echo 'yay this is also called';
+        });
+
+        $this->runner->runBeforeHooksForTransaction($transaction);
+
+        $this->expectOutputString('yay this is also called');
+    }
+
 }
