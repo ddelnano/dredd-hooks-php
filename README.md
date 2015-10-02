@@ -68,6 +68,21 @@ The `Dredd\Hooks` class provides the following methods `before`, `after`, `befor
 These methods correspond to the events that Dredd will run as it makes requests to the API endpoints defined in the blueprint/apiary.apib file.
 The `before`, `before_validation` and `after` hooks are identified by [transaction name](http://dredd.readthedocs.org/en/latest/hooks/#getting-transaction-names)
 
+### Wildcards
+
+When writing hooks for different api endpoints its very common to need the same hook for similar endpoints. For instance when testing Admin features
+the request must be authenticated with a user that has admin privileges.  For all hooks needing this instead of writing a hook for each one the following 
+can be used.
+
+```php
+Hooks::before('Admin > *', function(&$transaction) {
+
+    // This will be executed for any transaction with name starting with 'Admin > '
+});
+```
+
+This would execute for any transactions "nested" underneath 'Admin'.  For example the following transaction names would execute the callback: 'Admin > Login', 'Admin > Test', etc.
+
 ##How to Contribute
 
 1. Fork it

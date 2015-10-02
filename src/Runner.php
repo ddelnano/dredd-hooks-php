@@ -26,13 +26,14 @@ class Runner {
         $transaction = $args[0];
 
         // get all the hooks from Dredd\Hooks
-        $hooks = $this->getHooksFromMethodCall($method, $transaction);
+        $hooks = $this->getCallbacksFromMethodCall($method, $transaction);
 
         if ( ! is_array($hooks)) throw new RuntimeException("Hooks must be an array");
 
         array_walk($hooks, function($hook) use (&$transaction) {
 
-            $hook($transaction);
+            $callback = $hook->getCallback();
+            $callback($transaction);
         });
 
         return $transaction;
@@ -45,23 +46,10 @@ class Runner {
         return lcfirst($matches[0]) . 'Hooks';
     }
 
-    private function getHooksFromMethodCall($method, $transaction)
+    private function getCallbacksFromMethodCall($method, $transaction)
     {
         $propertyName = $this->getPropertyNameFromMethodCall($method);
 
-        if ( ! property_exists(Hooks::class, $propertyName)) throw new RuntimeException("Invalid property {$propertyName} trying to be accessed");
-
-        if (strpos($propertyName, 'All') || strpos($propertyName, 'Each')) {
-
-            return Hooks::${$propertyName};
-        }
-
-
-        else if (array_key_exists($transaction->name, Hooks::${$propertyName})) {
-
-            return Hooks::${$propertyName}[$transaction->name];
-        }
-
-        return [];
+        return Hooks::getCallbacksForName($propertyName, $transaction);
     }
 }
