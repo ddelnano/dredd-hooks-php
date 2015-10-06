@@ -70,6 +70,8 @@ The `before`, `before_validation` and `after` hooks are identified by [transacti
 
 ### Wildcards
 
+**Must be using version 1.1 or higher**
+
 When writing hooks for different api endpoints its very common to need the same hook for similar endpoints. For instance when testing Admin features
 the request must be authenticated with a user that has admin privileges.  For all hooks needing this instead of writing a hook for each one the following 
 can be used.
