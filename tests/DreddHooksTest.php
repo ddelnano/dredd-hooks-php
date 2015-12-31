@@ -2,10 +2,19 @@
 
 use Dredd\Hooks;
 
+/**
+ * Class DreddHooksTest
+ */
 class DreddHooksTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var string
+     */
     public $className = "Dredd\\Callback";
 
+    /**
+     *
+     */
     public function tearDown()
     {
         Hooks::$beforeAllHooks = [];

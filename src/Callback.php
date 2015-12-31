@@ -2,6 +2,10 @@
 
 use RuntimeException;
 
+/**
+ * Class Callback
+ * @package Dredd
+ */
 class Callback
 {
 
@@ -20,22 +24,36 @@ class Callback
      */
     private $callback;
 
+    /**
+     * Callback constructor.
+     * @param callable $callback
+     * @param string $name
+     */
     public function __construct(callable $callback, $name = '')
     {
         $this->callback = $callback;
         $this->setName($name);
     }
 
+    /**
+     * @return bool
+     */
     public function isWildcard()
     {
         return $this->wildcard;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @param $name
+     */
     public function setName($name)
     {
         $hasWildcard = strpos($name, "*") ? true : false;
@@ -57,6 +75,9 @@ class Callback
         $this->wildcard = false;
     }
 
+    /**
+     * @return callable
+     */
     public function getCallback()
     {
         return $this->callback;

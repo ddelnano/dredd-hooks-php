@@ -5,6 +5,7 @@ use RuntimeException;
 /**
  * Class Runner
  * @package Dredd
+ * @param string $transaction
  * @method mixed runBeforeHooksForTransaction($transaction) Runs beforeHooks for a given transaction on Dredd\Hooks
  * @method mixed runBeforeValidationHooksForTransaction($transaction) Runs beforeValidationHooks for a given transaction on Dredd\Hooks
  * @method mixed runAfterHooksForTransaction($transaction) Runs afterHooks for a given transaction on Dredd\Hooks
@@ -20,6 +21,11 @@ class Runner {
 
     const METHOD_REGEX = '/(?<=run)(Before(?:All|Each|Validation|EachValidation)?|After(?:All|Each)?)(?=HooksForTransaction)/';
 
+    /**
+     * @param $method
+     * @param $args
+     * @return mixed
+     */
     public function __call($method, $args)
     {
         // access name index on transaction object
@@ -39,6 +45,10 @@ class Runner {
         return $transaction;
     }
 
+    /**
+     * @param $method
+     * @return string
+     */
     public function getPropertyNameFromMethodCall($method)
     {
         if ( ! preg_match(self::METHOD_REGEX, $method, $matches)) throw new RuntimeException("Invalid method call {$method}");
@@ -46,6 +56,11 @@ class Runner {
         return lcfirst($matches[0]) . 'Hooks';
     }
 
+    /**
+     * @param $method
+     * @param $transaction
+     * @return array
+     */
     private function getCallbacksFromMethodCall($method, $transaction)
     {
         $propertyName = $this->getPropertyNameFromMethodCall($method);

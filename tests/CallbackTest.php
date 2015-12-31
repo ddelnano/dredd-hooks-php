@@ -2,6 +2,9 @@
 
 use Dredd\Callback;
 
+/**
+ * Class CallbackTest
+ */
 class CallbackTest extends PHPUnit_Framework_TestCase
 {
     /**

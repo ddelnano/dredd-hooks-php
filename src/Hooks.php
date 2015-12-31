@@ -1,25 +1,57 @@
 <?php namespace Dredd;
 
+/**
+ * Class Hooks
+ * @package Dredd
+ */
 class Hooks {
 
+    /**
+     * @var array
+     */
     public static $beforeHooks = [];
 
+    /**
+     * @var array
+     */
     public static $beforeValidationHooks = [];
 
+    /**
+     * @var array
+     */
     public static $afterHooks = [];
 
 
+    /**
+     * @var array
+     */
     public static $beforeEachHooks = [];
 
+    /**
+     * @var array
+     */
     public static $beforeEachValidationHooks = [];
 
+    /**
+     * @var array
+     */
     public static $afterEachHooks = [];
 
 
+    /**
+     * @var array
+     */
     public static $beforeAllHooks = [];
 
+    /**
+     * @var array
+     */
     public static $afterAllHooks = [];
 
+    /**
+     * @param $transactionName
+     * @param callable $function
+     */
     public static function before($transactionName, callable $function)
     {
         $callback = new Callback($function, $transactionName);
@@ -30,6 +62,10 @@ class Hooks {
         self::$beforeHooks[$transactionName][] = $callback;
     }
 
+    /**
+     * @param $transactionName
+     * @param callable $function
+     */
     public static function beforeValidation($transactionName, callable $function)
     {
         $callback = new Callback($function, $transactionName);
@@ -40,6 +76,10 @@ class Hooks {
         self::$beforeValidationHooks[$transactionName][] = $callback;
     }
 
+    /**
+     * @param $transactionName
+     * @param callable $function
+     */
     public static function after($transactionName, callable $function)
     {
         $callback = new Callback($function, $transactionName);
@@ -50,6 +90,9 @@ class Hooks {
         self::$afterHooks[$transactionName][] = $callback;
     }
 
+    /**
+     * @param callable $function
+     */
     public static function beforeEach(callable $function)
     {
         $callback = new Callback($function);
@@ -57,6 +100,9 @@ class Hooks {
         self::$beforeEachHooks[] = $callback;
     }
 
+    /**
+     * @param callable $function
+     */
     public static function beforeEachValidation(callable $function)
     {
         $callback = new Callback($function);
@@ -64,6 +110,9 @@ class Hooks {
         self::$beforeEachValidationHooks[] = $callback;
     }
 
+    /**
+     * @param callable $function
+     */
     public static function afterEach(callable $function)
     {
         $callback = new Callback($function);
@@ -71,6 +120,9 @@ class Hooks {
         self::$afterEachHooks[] = $callback;
     }
 
+    /**
+     * @param callable $function
+     */
     public static function beforeAll(callable $function)
     {
         $callback = new Callback($function);
@@ -78,6 +130,9 @@ class Hooks {
         self::$beforeAllHooks[] = $callback;
     }
 
+    /**
+     * @param callable $function
+     */
     public static function afterAll(callable $function)
     {
         $callback = new Callback($function);
@@ -85,6 +140,11 @@ class Hooks {
         self::$afterAllHooks[] = $callback;
     }
 
+    /**
+     * @param $propertyName
+     * @param $transaction
+     * @return array
+     */
     public static function getCallbacksForName($propertyName, $transaction)
     {
         $callbacks = [];
@@ -126,6 +186,9 @@ class Hooks {
         return $callbacks;
     }
 
+    /**
+     * @param $files
+     */
     public static function loadHooks($files)
     {
         $paths = $files;

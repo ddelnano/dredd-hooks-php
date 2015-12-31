@@ -3,6 +3,9 @@
 
 use Dredd\Hooks;
 
+/**
+ * Class DreddRunnerTest
+ */
 class DreddRunnerTest extends PHPUnit_Framework_TestCase
 {
 
@@ -11,6 +14,9 @@ class DreddRunnerTest extends PHPUnit_Framework_TestCase
      */
     protected $runner;
 
+    /**
+     *
+     */
     public function setUp()
     {
         $this->runner = new Dredd\Runner;
