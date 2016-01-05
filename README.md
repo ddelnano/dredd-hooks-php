@@ -36,6 +36,10 @@ Hooks::beforeAll(function(&$transaction) {
 
 ###Composer
 
+#### Requirements
+
+- Must have php version 5.4 or greater.  There is a plan to support older versions but no definitive plan of exactly when that will happen.
+
 `dredd-hooks-php` can be easily installed through the use of [Composer](https://getcomposer.org/).
 
 `composer require dredd-hooks-php --dev`
