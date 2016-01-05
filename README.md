@@ -124,3 +124,7 @@ More details about the integration test can be found in the [dredd-hooks-templat
 ##Further Details
 
 For examples and more information please visit the [wiki](https://github.com/ddelnano/dredd-hooks-php/wiki)
+
+# TODO
+- [ ] Add support for older versions of php
+- [ ] Add style guide to CI through [phpcs](https://github.com/squizlabs/PHP_CodeSniffer)
