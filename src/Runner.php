@@ -17,7 +17,8 @@ use RuntimeException;
  */
 
 
-class Runner {
+class Runner
+{
 
     const METHOD_REGEX = '/(?<=run)(Before(?:All|Each|Validation|EachValidation)?|After(?:All|Each)?)(?=HooksForTransaction)/';
 
@@ -34,9 +35,12 @@ class Runner {
         // get all the hooks from Dredd\Hooks
         $hooks = $this->getCallbacksFromMethodCall($method, $transaction);
 
-        if ( ! is_array($hooks)) throw new RuntimeException("Hooks must be an array");
+        if (! is_array($hooks)) {
+            
+            throw new RuntimeException("Hooks must be an array");
+        }
 
-        array_walk($hooks, function($hook) use (&$transaction) {
+        array_walk($hooks, function ($hook) use (&$transaction) {
 
             $callback = $hook->getCallback();
             $callback($transaction);
@@ -51,7 +55,10 @@ class Runner {
      */
     public function getPropertyNameFromMethodCall($method)
     {
-        if ( ! preg_match(self::METHOD_REGEX, $method, $matches)) throw new RuntimeException("Invalid method call {$method}");
+        if (! preg_match(self::METHOD_REGEX, $method, $matches)) {
+           
+            throw new RuntimeException("Invalid method call {$method}");
+        }
 
         return lcfirst($matches[0]) . 'Hooks';
     }

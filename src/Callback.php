@@ -63,7 +63,10 @@ class Callback
             $tokens = explode("*", $name);
 
             // There should not be more than 1 wildcard per name.
-            if (count($tokens) > 2) throw new RuntimeException("Wildcard name should not contain more than 1 wildcard");
+            if (count($tokens) > 2) {
+                
+                throw new RuntimeException("Wildcard name should not contain more than 1 wildcard");
+            }
 
             $this->name = str_replace(" ", "", $tokens[0]);
             $this->wildcard = true;

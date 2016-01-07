@@ -11,5 +11,6 @@ php:
   - "7"
 
 script:
-  - bundle exec cucumber
+  - vendor/bin/phpcs --standard=psr2 -n src/
   - vendor/bin/phpunit    
+  - bundle exec cucumber
