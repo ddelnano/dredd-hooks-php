@@ -4,7 +4,8 @@
  * Class Hooks
  * @package Dredd
  */
-class Hooks {
+class Hooks
+{
 
     /**
      * @var array
@@ -57,7 +58,10 @@ class Hooks {
         $callback = new Callback($function, $transactionName);
         $transactionName = $callback->getName();
 
-        if ( ! array_key_exists($transactionName, self::$beforeHooks)) self::$beforeHooks[$transactionName] = [];
+        if (! array_key_exists($transactionName, self::$beforeHooks)) {
+            
+            self::$beforeHooks[$transactionName] = [];
+        }
 
         self::$beforeHooks[$transactionName][] = $callback;
     }
@@ -71,7 +75,10 @@ class Hooks {
         $callback = new Callback($function, $transactionName);
         $transactionName = $callback->getName();
 
-        if ( ! array_key_exists($transactionName, self::$beforeValidationHooks)) self::$beforeValidationHooks[$transactionName] = [];
+        if (! array_key_exists($transactionName, self::$beforeValidationHooks)) {
+            
+            self::$beforeValidationHooks[$transactionName] = [];
+        }
 
         self::$beforeValidationHooks[$transactionName][] = $callback;
     }
@@ -85,7 +92,10 @@ class Hooks {
         $callback = new Callback($function, $transactionName);
         $transactionName = $callback->getName();
 
-        if ( ! array_key_exists($transactionName, self::$afterHooks)) self::$afterHooks[$transactionName] = [];
+        if (! array_key_exists($transactionName, self::$afterHooks)) {
+            
+            self::$afterHooks[$transactionName] = [];
+        }
 
         self::$afterHooks[$transactionName][] = $callback;
     }
@@ -193,11 +203,11 @@ class Hooks {
     {
         $paths = $files;
         // iterate through the files passed from stdin
-        array_walk($paths, function($file) {
+        array_walk($paths, function ($file) {
 
             // iterate through the files passed back from expanding globs
             $globs = glob($file);
-            array_walk($globs, function($path) {
+            array_walk($globs, function ($path) {
 
                 // require all files except dredd-hooks-php
                 if (basename($path) != 'dredd-hooks-php') {

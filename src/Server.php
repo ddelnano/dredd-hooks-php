@@ -2,7 +2,8 @@
 
 use UnexpectedValueException;
 
-class Server {
+class Server
+{
 
     const SOCKET = "tcp://127.0.0.1:61321";
 
@@ -37,7 +38,10 @@ class Server {
                 $buffer .= $socketData;
 
                 // determine if message terminating character is present.
-                if (strpos($buffer, self::MESSAGE_END) === false) continue;
+                if (strpos($buffer, self::MESSAGE_END) === false) {
+
+                    continue;
+                }
 
                 $messages = [];
 
@@ -46,7 +50,7 @@ class Server {
                     $message = json_decode($data);
 
                     // if not valid json the partial message needs saved
-                    if ( ! $message) {
+                    if (! $message) {
 
                         $buffer = $message;
                         continue;
@@ -55,7 +59,10 @@ class Server {
                     $messages[] = $message;
                 }
 
-                foreach ($messages as $message) $this->processMessage($message, $client);
+                foreach ($messages as $message) {
+
+                    $this->processMessage($message, $client);
+                }
             }
 
         }
