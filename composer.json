@@ -16,7 +16,8 @@
   "bin": ["bin/dredd-hooks-php"],
   "require-dev": {
     "phpunit/phpunit": "~4.0",
-    "mockery/mockery": "0.9.*"
+    "mockery/mockery": "0.9.*",
+    "squizlabs/php_codesniffer": "^2.5"
   },
   "autoload": {
     "psr-4": {
