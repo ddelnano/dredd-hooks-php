@@ -1,32 +1,33 @@
 <?php
 
-use App\User;
 use Dredd\Hooks;
-use Illuminate\Database\Capsule\Manager;
-use Laracasts\TestDummy\Factory;
+use Illuminate\Support\Facades\Artisan;
 
-$manager = new Manager();
+require __DIR__ . '/../../../vendor/autoload.php';
 
-$config = require __DIR__ . "/../../../config/database.php";
+$app = require __DIR__ . '/../../../bootstrap/app.php';
 
-$manager->addConnection($config['connections']['sqlite']);
-$manager->bootEloquent();
-$manager->setAsGlobal();
+$app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
-$manager->getConnection()->beginTransaction();
+Artisan::call('migrate');
 
-$factory = new Factory(__DIR__ . "/../../../tests/factories");
+Hooks::beforeEach(function (&$transaction) use ($app) {
+    $app->make('db')->beginTransaction();
+});
 
+Hooks::afterEach(function (&$transaction) use ($app) {
+    $app->make('db')->rollback();
+});
+
+Hooks::afterAll(function (&$transaction) use ($app) {
+    Artisan::call('migrate:rollback');
+});
 
 Hooks::before('/users > GET', function(&$transaction) {
 
-    Factory::create(User::class, [
-        'name' => 'Dom',
-        'email' => 'ddelnano@gmail.com'
-    ]);
-});
-
-Hooks::after('/users > GET', function(&$transaction) use($manager) {
-
-    $manager->getConnection()->rollback();
+    factory(\App\User::class)->create([
+            'name' => 'Dom',
+            'email' => 'ddelnano@gmail.com',
+        ]
+    );
 });
