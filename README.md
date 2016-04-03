@@ -42,7 +42,7 @@ Hooks::beforeAll(function(&$transaction) {
 
 `dredd-hooks-php` can be easily installed through the use of [Composer](https://getcomposer.org/).
 
-`composer require dredd-hooks-php --dev`
+`composer require ddelnano/dredd-hooks-php --dev`
 
 ##Usage
 
