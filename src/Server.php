@@ -115,15 +115,19 @@ class Server
 
     private function killProgramsOnDreddPort()
     {
-        // get any programs running on the dredd port
-        $string = shell_exec("lsof -i tcp:61321");
+        foreach ([SIGTERM, SIGINT, SIGHUP, SIGKILL] as $signal) {
+            // get any programs running on the dredd port
+            if ($string = shell_exec("lsof -i tcp:61321")) {
+                $regex = '/(?:php\s*)(\d*)/';
 
-        $regex = '/(?:php\s*)(\d*)/';
+                // get matches if any programs are returned
+                preg_match($regex, $string, $matches);
 
-        // get matches if any programs are returned
-        preg_match($regex, $string, $matches);
+                // execute kill command so server can listen on port
+                shell_exec("kill -$signal {$matches[1]}");
 
-        // execute kill command so server can listen on port
-        shell_exec("kill -9 {$matches[1]}");
+                sleep(3);
+            }
+        }
     }
 }
