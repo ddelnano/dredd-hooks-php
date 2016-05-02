@@ -5,22 +5,27 @@ use UnexpectedValueException;
 class Server
 {
 
-    const SOCKET = "tcp://127.0.0.1:61321";
-
     const RECV_LENGTH= 10;
 
     const MESSAGE_END = "\n";
 
-    public function __construct()
+    private $port;
+    private $socket;
+
+    public function __construct($host = '127.0.0.1', $port = 61321)
     {
         $this->runner = new Runner;
+	$this->port = $port;
+	$this->socket = sprintf('tcp://%s:%s', $host, $port);
     }
 
-    public function run()
+    public function run($force = false)
     {
-//        $this->killProgramsOnDreddPort();
+	if ($force) {
+		$this->killProgramsOnDreddPort();
+	}
 
-        $server = stream_socket_server(self::SOCKET, $errno, $errorMessage);
+        $server = stream_socket_server($this->socket, $errno, $errorMessage);
 
         if ($server === false) {
 
@@ -117,7 +122,7 @@ class Server
     {
         foreach ([SIGTERM, SIGINT, SIGHUP, SIGKILL] as $signal) {
             // get any programs running on the dredd port
-            if ($string = shell_exec("lsof -i tcp:61321")) {
+            if ($string = shell_exec(sprintf("lsof -i tcp:%s", $this->port))) {
                 $regex = '/(?:php\s*)(\d*)/';
 
                 // get matches if any programs are returned
