@@ -15,15 +15,15 @@ class Server
     public function __construct($host = '127.0.0.1', $port = 61321)
     {
         $this->runner = new Runner;
-	$this->port = $port;
-	$this->socket = sprintf('tcp://%s:%s', $host, $port);
+        $this->port = $port;
+        $this->socket = sprintf('tcp://%s:%s', $host, $port);
     }
 
     public function run($force = false)
     {
-	if ($force) {
-		$this->killProgramsOnDreddPort();
-	}
+        if ($force) {
+                $this->killProgramsOnDreddPort();
+        }
 
         $server = stream_socket_server($this->socket, $errno, $errorMessage);
 
