@@ -9,14 +9,22 @@ class Server
 
     const MESSAGE_END = "\n";
 
-    private $port;
-    private $socket;
+    private $host = '127.0.0.1';
+    private $port = 61321;
 
-    public function __construct($host = '127.0.0.1', $port = 61321)
+    public function __construct()
     {
         $this->runner = new Runner;
+    }
+
+    public function setHost($host)
+    {
+        $this->host = $host;
+    }
+
+    public function setPort($port)
+    {
         $this->port = $port;
-        $this->socket = sprintf('tcp://%s:%s', $host, $port);
     }
 
     public function run($force = false)
@@ -25,7 +33,8 @@ class Server
                 $this->killProgramsOnDreddPort();
         }
 
-        $server = stream_socket_server($this->socket, $errno, $errorMessage);
+        $socket = sprintf('tcp://%s:%s', $this->host, $this->port);
+        $server = stream_socket_server($socket, $errno, $errorMessage);
 
         if ($server === false) {
 
