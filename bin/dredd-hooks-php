@@ -57,10 +57,10 @@ foreach($options as $key => $value) {
 Hooks::loadHooks($argv);
 
 $server = new Server();
-if ($host) {
+if (isset($host)) {
 	$server->setHost($host);
 }
-if ($port) {
+if (isset($port)) {
 	$server->setPort($port);
 }
 
