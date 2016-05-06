@@ -197,22 +197,21 @@ class Hooks
     }
 
     /**
-     * @param $files
+     * @param $arguments
      */
-    public static function loadHooks($files)
+    public static function loadHooks($arguments)
     {
-        $paths = $files;
-        // iterate through the files passed from stdin
-        array_walk($paths, function ($file) {
+        // iterate through the arguments passed from stdin
+        array_walk($arguments, function ($argument) {
 
             // iterate through the files passed back from expanding globs
-            $globs = glob($file);
-            array_walk($globs, function ($path) {
+            $files = glob($argument);
+            array_walk($files, function ($file) {
 
                 // require all files except dredd-hooks-php
-                if (basename($path) != 'dredd-hooks-php') {
+                if (basename($file) != 'dredd-hooks-php') {
 
-                    require_once $path;
+                    require_once $file;
                 }
             });
         });
