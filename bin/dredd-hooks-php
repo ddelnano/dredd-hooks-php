@@ -30,41 +30,17 @@ $options = getopt('', [
     'force',
 ]);
 
-// Extract parameters from options
-if (array_key_exists('host', $options)) {
-	$host = $options['host'];
-}
-if (array_key_exists('port', $options)) {
-	$port = $options['port'];
-}
-$force = array_key_exists('force', $options);
-
-// Remove parameters from the list of arguments
-foreach($options as $key => $value) {
-	if ($pos = array_search(sprintf('--%s=%s', $key, $value), $argv)) {
-		unset($argv[$pos]);
-		continue;
-	}
-	$posKey = array_search(sprintf('--%s', $key), $argv);
-	$posValue = array_search($value, $argv);
-	unset($argv[$posKey]);
-	if ( 1 == abs($posKey - $posValue)) {
-		unset($argv[$posValue]);
-		continue;
-	}
-}
-
 Hooks::loadHooks($argv);
 
 $server = new Server();
-if (isset($host)) {
-	$server->setHost($host);
+if (array_key_exists('host', $options)) {
+	$server->setHost($options['host']);
 }
-if (isset($port)) {
-	$server->setPort($port);
+if (array_key_exists('port', $options)) {
+	$server->setPort($options['port']);
 }
 
 fprintf(STDOUT, "Starting server\n");
 flush();
 
-$server->run($force);
+$server->run(array_key_exists('force', $options));
