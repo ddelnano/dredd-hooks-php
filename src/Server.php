@@ -9,21 +9,13 @@ class Server
 
     const MESSAGE_END = "\n";
 
-    private $host = '127.0.0.1';
-    private $port = 61321;
+    private $host;
+    private $port;
 
-    public function __construct()
+    public function __construct($host, $port)
     {
         $this->runner = new Runner;
-    }
-
-    public function setHost($host)
-    {
         $this->host = $host;
-    }
-
-    public function setPort($port)
-    {
         $this->port = $port;
     }
 

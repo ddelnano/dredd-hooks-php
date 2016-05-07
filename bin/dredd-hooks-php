@@ -32,13 +32,14 @@ $options = getopt('', [
 
 Hooks::loadHooks($argv);
 
-$server = new Server();
-if (array_key_exists('host', $options)) {
-	$server->setHost($options['host']);
-}
-if (array_key_exists('port', $options)) {
-	$server->setPort($options['port']);
-}
+$host = array_key_exists('host', $options)
+    ? $options['host']
+    : '127.0.0.1';
+$port = array_key_exists('port', $options)
+    ? $options['port']
+    : 61321;
+
+$server = new Server($host, $port);
 
 fprintf(STDOUT, "Starting server\n");
 flush();
