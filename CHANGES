@@ -1,0 +1,5 @@
+Changes from 1.1.4 to 1.1.5
+
+dredd-hooks-php command can now accept the flags --port, --host and --force.
+
+The host and port flags are obviously to override the default of localhost and 61321 respectively.  The force flag allows the server to start regardless if some other service is already listening on that port.
