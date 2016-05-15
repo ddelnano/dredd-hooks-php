@@ -8,5 +8,5 @@ Feature: Configuring the server
   @announce
   Scenario: Starting the server on non standard port
     Given I run `dredd-hooks-php --port 123` interactively
-    Then It should start listening on localhost port 123
+    Then It should start listening on localhost port "123"
 
