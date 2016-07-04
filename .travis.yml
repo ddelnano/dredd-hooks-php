@@ -1,15 +1,15 @@
+sudo: required
+dist: trusty
 language: php
 before_install:
   - npm install -g dredd
   - bundle install
   - composer install
-
 php:
   - "5.4"
   - "5.5"
   - "5.6"
   - "7"
-
 script:
   - vendor/bin/phpcs --standard=psr2 -n src/
   - vendor/bin/phpunit    
