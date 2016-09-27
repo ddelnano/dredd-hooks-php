@@ -1,6 +1,6 @@
 # PHP Hooks for Dredd API Testing Framework
 [![Build Status](https://travis-ci.org/ddelnano/dredd-hooks-php.svg?branch=master)](https://travis-ci.org/ddelnano/dredd-hooks-php)
-[![Latest Stable Version](https://poser.pugx.org/ddelnano/dredd-hooks-php/v/stable)](https://packagist.org/packages/ddelnano/dredd-hooks-php) [![Total Downloads](https://poser.pugx.org/ddelnano/dredd-hooks-php/downloads)](https://packagist.org/packages/ddelnano/dredd-hooks-php) [![Latest Unstable Version](https://poser.pugx.org/ddelnano/dredd-hooks-php/v/unstable)](https://packagist.org/packages/ddelnano/dredd-hooks-php) [![License](https://poser.pugx.org/ddelnano/dredd-hooks-php/license)](https://packagist.org/packages/ddelnano/dredd-hooks-php)
+[![Packagist](https://img.shields.io/packagist/dm/ddelnano/dredd-hooks-php.svg?maxAge=2592000)]() [![Packagist](https://img.shields.io/packagist/v/ddelnano/dredd-hooks-php.svg?maxAge=2592000)]()  [![license](https://img.shields.io/github/license/ddelnano/dredd-hooks-php.svg?maxAge=2592000)]()
 
 ##About
 This package contains a PHP Dredd hook handler which provides a bridge between the [Dredd API Testing Framework](http://dredd.readthedocs.org/en/latest/)
