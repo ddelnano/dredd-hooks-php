@@ -1,6 +1,6 @@
 # PHP Hooks for Dredd API Testing Framework
 [![Build Status](https://travis-ci.org/ddelnano/dredd-hooks-php.svg?branch=master)](https://travis-ci.org/ddelnano/dredd-hooks-php)
-[![Github All Releases](https://img.shields.io/github/downloads/ddelnano/dredd-hooks-php/total.svg?maxAge=2592000)]()
+[![Github All Releases](https://img.shields.io/packagist/d/ddelnano/dredd-hooks-php/total.svg?maxAge=2592000)]()
 [![Packagist](https://img.shields.io/packagist/dm/ddelnano/dredd-hooks-php.svg?maxAge=2592000)]() [![Packagist](https://img.shields.io/packagist/v/ddelnano/dredd-hooks-php.svg?maxAge=2592000)]()  [![license](https://img.shields.io/github/license/ddelnano/dredd-hooks-php.svg?maxAge=2592000)]()
 
 ##About
