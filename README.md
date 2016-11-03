@@ -66,7 +66,7 @@ in the closure's local scope.
 
 2. Run it with dredd
 
-`dredd apiary.apib localhost:3000 --language dredd-hooks-php --hookfiles ./hooks.php`
+`dredd apiary.apib localhost:3000 --language php --hookfiles ./hooks.php`
 
 ##API
 
