@@ -24,11 +24,12 @@ if (!$loaded) {
 }
 
 // Get options from the command line
-$options = getopt('', [
-    'host:',
-    'port:',
-    'force',
-]);
+$options = [];
+/* $options = getopt('', [ */
+/*     'host:', */
+/*     'port:', */
+/*     'force', */
+/* ]); */
 
 Hooks::loadHooks($argv);
 
