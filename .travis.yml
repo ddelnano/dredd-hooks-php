@@ -1,7 +1,8 @@
 sudo: required
 language: php
 before_install:
-  - npm install -g dredd
+  - nvm install node && nvm use node
+  - npm install -g dredd --no-optional
   - bundle install
   - composer install
 php:
@@ -11,5 +12,5 @@ php:
   - "7"
 script:
   - vendor/bin/phpcs --standard=psr2 -n src/
-  - vendor/bin/phpunit    
+  - vendor/bin/phpunit
   - bundle exec cucumber
