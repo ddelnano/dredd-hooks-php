@@ -3,7 +3,7 @@
 [![Packagist](https://img.shields.io/packagist/dt/ddelnano/dredd-hooks-php.svg?maxAge=2592000)]()
 [![Packagist](https://img.shields.io/packagist/dm/ddelnano/dredd-hooks-php.svg?maxAge=2592000)]() [![Packagist](https://img.shields.io/packagist/v/ddelnano/dredd-hooks-php.svg?maxAge=2592000)]()  [![license](https://img.shields.io/github/license/ddelnano/dredd-hooks-php.svg?maxAge=2592000)]()
 
-##About
+## About
 This package contains a PHP Dredd hook handler which provides a bridge between the [Dredd API Testing Framework](http://dredd.readthedocs.org/en/latest/)
  and PHP environment to ease implementation of testing hooks provided by [Dredd](http://dredd.readthedocs.org/en/latest/). Write Dredd hooks in PHP to glue together [API Blueprint](https://apiblueprint.org/) with your PHP project
 
@@ -33,9 +33,9 @@ Hooks::beforeAll(function(&$transaction) {
     // do any necessary setup
 });
 ```
-##Installing
+## Installing
 
-###Composer
+### Composer
 
 #### Requirements
 
@@ -45,7 +45,7 @@ Hooks::beforeAll(function(&$transaction) {
 
 `composer require ddelnano/dredd-hooks-php --dev`
 
-##Usage
+## Usage
 
 1. Create a hook file in `hooks.php`
 
@@ -68,7 +68,7 @@ in the closure's local scope.
 
 `dredd apiary.apib localhost:3000 --language php --hookfiles ./hooks.php`
 
-##API
+## API
 
 The `Dredd\Hooks` class provides the following methods `before`, `after`, `before_all`, `after_all`, `before_each`, `after_each`, `before_validation`, and `before_each_validation`.
 These methods correspond to the events that Dredd will run as it makes requests to the API endpoints defined in the blueprint/apiary.apib file.
@@ -91,7 +91,7 @@ Hooks::before('Admin > *', function(&$transaction) {
 
 This would execute for any transactions "nested" underneath 'Admin'.  For example the following transaction names would execute the callback: 'Admin > Login', 'Admin > Test', etc.
 
-##How to Contribute
+## How to Contribute
 
 1. Fork it
 2. Create your feature branch (git checkout -b my-newfeature)
@@ -99,7 +99,7 @@ This would execute for any transactions "nested" underneath 'Admin'.  For exampl
 4. Push (git push origin my-new-feature)
 5. Create a new Pull Request
 
-##Tests
+## Tests
 
 When making a contribution it is very important to not break existing functionality.  This project uses PHPUnit for unit testing and
 uses ruby based aruba.  
@@ -122,10 +122,6 @@ The test suite can be run by following these steps:
    
 More details about the integration test can be found in the [dredd-hooks-template repo](https://github.com/apiaryio/dredd-hooks-template)   
 
-##Further Details
+## Further Details
 
 For examples and more information please visit the [wiki](https://github.com/ddelnano/dredd-hooks-php/wiki)
-
-# TODO
-- [ ] Add code coverage to CI
-- [ ] Add support for older versions of php
