@@ -1,27 +1,142 @@
-## Laravel PHP Framework
+The following is an example Laravel application that is tested using Dredd and dredd-hooks-php.
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+It shows how dredd-hooks-php can be utilized to seed a database for API endpoints being tested by Dredd.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## Assumptions
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+This example assumes you will be using Laravel homestead.   All of the files referenced in this section assume the root directory is `examples/laravel`
 
-## Official Documentation
+The `laravel.apib` file 
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+```
+# My Api
+## GET /user
++ Response 200 (application/json;charset=utf-8)
+        {
+            "user": {
+                "name": "John Doe",
+                "age": 22
+            }
+        }
+## GET /users
++ Response 200 (application/json;charset=utf-8)
+        {
+            "users": [
+                {
+                    "name": "Dom",
+                    "email": "ddelnano@gmail.com"
+                }
+            ]
+        }
+```
 
-## Contributing
+The laravel routes file (`app/Http/routes.php`)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+```php
+<?php
 
-## Security Vulnerabilities
+/*
+|--------------------------------------------------------------------------
+| Routes File
+|--------------------------------------------------------------------------
+|
+| Here is where you will register all of the routes in an application.
+| It's a breeze. Simply tell Laravel the URIs it should respond to
+| and give it the controller to call when that URI is requested.
+|
+*/
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+use App\User;
+use Illuminate\Http\Response;
 
-### License
+Route::get('/', function () {
+    return view('welcome');
+});
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Route::get('/user', function () {
+
+    $data = json_encode([
+        'user' => [
+            'name' => 'John Doe',
+            'age' => 22
+        ]
+    ]);
+
+    return (new Response($data, 200))->header('Content-Type', 'application/json;charset=utf-8');
+});
+
+Route::get('/users', function() {
+
+    $users = User::all();
+
+    return (new Response(['users' => $users], 200))->header('Content-Type', 'application/json;charset=utf-8');
+});
+```
+
+This file defines the two routes expected in the api blueprint file.  As you can see, the `/user` endpoint has the output hardcoded.  The `/users` endpoint however retrieves data from the database.  In order to seed the database before Dredd hits the endpoint, we can use a before hook.
+
+The following hookfile uses Laravel's built in factory function to seed the database.
+
+Here is the hookfile (`tests/dredd/hooks/hookfile.php`)
+```php
+<?php
+
+use Dredd\Hooks;
+use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Support\Facades\Artisan;
+
+require __DIR__ . '/../../../vendor/autoload.php';
+
+$app = require __DIR__ . '/../../../bootstrap/app.php';
+
+$app->make(Kernel::class)->bootstrap();
+
+Hooks::beforeAll(function (&$transaction) use ($app) {
+    Artisan::call('migrate', ['--force' => true]);
+});
+
+Hooks::before('/users > GET', function(&$transaction) {
+    factory(\App\User::class)->create([
+            'name' => 'Dom',
+            'email' => 'ddelnano@gmail.com',
+        ]
+    );
+});
+
+Hooks::afterAll(function (&$transaction) use ($app) {
+    Artisan::call('migrate:rollback', ['--force' => true]);
+});
+```
+
+## Running the example
+
+1. Clone the repository
+`git clone https://github.com/ddelnano/dredd-hooks-php.git`
+
+2. Map the Laravel example into your homestead VM
+
+```
+# Homestead.yaml
+folders:
+  - map: ~/Code/dredd-hooks-php/examples/laravel
+    to: /home/vagrant/code
+```
+
+3. Reload homestead
+`vagrant reload --provision`
+
+4. SSH to VM
+`vagrant ssh`
+
+2. Run make
+`cd /home/vagrant/code`
+`make`
+
+Running make will do the following:
+- composer install
+- npm install
+- run dredd
+
+## Important Details
+
+When writing tests for applications its very important to keep each test isolated from one another.  When testing web applications that use a database there are typically two ways to manage this: migrations or transactions.  When using database migrations in your test setup you would run your migrations and on teardown you would roll them back.  Transactions on the other hand you would start a transaction on setup and then rollback the transaction on teardown.  Using transactions is much faster, especially as the number of migrations in your application grows.  Unfortunately with dredd hooks there is no out of the box solution for using transactions.  Dredd-hooks-php and your web application are two separate php processes and since a transaction can only be seen on the same connection it will not work.  There are potential work arounds but it becomes complicated.  Please see [this issue](https://github.com/ddelnano/dredd-hooks-php/issues/34) for a more detailed explanation.
