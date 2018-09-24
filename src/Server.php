@@ -4,13 +4,15 @@ use UnexpectedValueException;
 
 class Server
 {
-
-    const RECV_LENGTH= 10;
+    const RECV_LENGTH = 10;
 
     const MESSAGE_END = "\n";
 
     private $host;
     private $port;
+
+    /** @var Runner */
+    private $runner;
 
     public function __construct($host, $port)
     {
@@ -22,24 +24,21 @@ class Server
     public function run($force = false)
     {
         if ($force) {
-                $this->killProgramsOnDreddPort();
+            $this->killProgramsOnDreddPort();
         }
 
         $socket = sprintf('tcp://%s:%s', $this->host, $this->port);
         $server = stream_socket_server($socket, $errno, $errorMessage);
 
         if ($server === false) {
-
             throw new UnexpectedValueException("Server could not bind to socket: $errorMessage");
         }
 
         $buffer = "";
 
-        for (;;) {
+        while ($connection = stream_socket_accept($server)) {
 
-            $client = stream_socket_accept($server);
-
-            while ($socketData = stream_socket_recvfrom($client, self::RECV_LENGTH)) {
+            while ($socketData = stream_socket_recvfrom($connection, self::RECV_LENGTH)) {
 
                 $buffer .= $socketData;
 
@@ -67,10 +66,9 @@ class Server
 
                 foreach ($messages as $message) {
 
-                    $this->processMessage($message, $client);
+                    $this->processMessage($message, $connection);
                 }
             }
-
         }
     }
 
