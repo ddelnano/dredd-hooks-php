@@ -1,6 +1,7 @@
 <?php namespace Dredd;
 
 use UnexpectedValueException;
+use Dredd\DataObjects\Transaction;
 
 class Server
 {
@@ -69,7 +70,7 @@ class Server
     public function processMessage($message, $client)
     {
         $event = $message->event;
-        $data = $message->data;
+        $data = new Transaction($message->data);
         $uuid = $message->uuid;
 
         if ($event == "beforeEach") {
