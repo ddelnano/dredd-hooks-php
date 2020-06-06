@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "test": "dredd-hooks-template test"
+  },
+  "private": true,
+  "devDependencies": {
+    "dredd-hooks-template": "1.1.8"
+  },
+  "dependencies": {
+    "why-is-node-running": "^2.1.2"
+  }
+}

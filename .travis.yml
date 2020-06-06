@@ -3,7 +3,6 @@ language: php
 before_install:
   - nvm install node && nvm use node
   - npm install -g dredd --no-optional
-  - bundle install
   - composer install
 php:
   - "5.4"
@@ -15,4 +14,4 @@ php:
 script:
   - vendor/bin/phpcs --standard=psr2 -n src/
   - vendor/bin/phpunit
-  - bundle exec cucumber
+  - npx cucumber-js features --require features/support --tags "not @skip"

@@ -1,25 +1,9 @@
 Feature: Wildcards in Hooks
 
   Background:
-    Given I have "dredd-hooks-php" command installed
-    And I have "dredd" command installed
-    And a file named "wildcards.rb" with:
-      """
-      require 'sinatra'
-
-      post '/categories' do
-          [201, '']
-      end
-
-      get '/categories/:id' do
-          [200, '']
-      end
-
-      delete '/categories/:id' do
-          [204, '']
-      end
-      """
-
+    Given I have dredd-hooks-php installed
+    Given I have Dredd installed
+    And a file "server.js" with a server responding on "http://localhost:4567" to wildcard hooks
     And a file named "wildcards.apib" with:
       """
       FORMAT: 1A
@@ -44,7 +28,7 @@ Feature: Wildcards in Hooks
 
   @announce
   Scenario:
-    Given a file named "hooks/wildcards.php" with:
+    Given a file named "wildcards.php" with:
       """
       <?php
 
@@ -60,8 +44,7 @@ Feature: Wildcards in Hooks
           $a++;
       });
       """
-    When I run `dredd ./wildcards.apib http://localhost:4567 --server "ruby wildcards.rb" --language "dredd-hooks-php" --hookfiles hooks/wildcards.php`
-#    Thend the exit status should be 1
+    When I run `dredd ./wildcards.apib http://localhost:4567 --server "node server.js" --language php --hookfiles wildcards.php --loglevel debug`
     And the output should contain:
       """
       Wildcards are fun! For the 1 time!

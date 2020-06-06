@@ -1,27 +1,19 @@
 Feature: Execution order
 
   Background:
-    Given I have "dredd-hooks-php" command installed
-    And I have "dredd" command installed
-    And a file named "server.rb" with:
-      """
-      require 'sinatra'
-      get '/message' do
-        "Hello World!\n\n"
-      end
-      """
-
+    Given I have dredd-hooks-php installed
+    And I have Dredd installed
+    And a file "server.js" with a server responding on "http://localhost:4567/message" with "Hello World!"
     And a file named "apiary.apib" with:
       """
       # My Api
       ## GET /message
-      + Response 200 (text/html;charset=utf-8)
-          Hello World!
+      + Response 200 (text/html)
       """
 
   @announce
   Scenario:
-    Given a file named "hooks/execution_order_hookfile.php" with:
+    Given a file named "execution_order_hookfile.php" with:
       """
       <?php
 
@@ -90,7 +82,7 @@ Feature: Execution order
       | variable                       | value      |
       | TEST_DREDD_HOOKS_HANDLER_ORDER | true       |
 
-    When I run `dredd ./apiary.apib http://localhost:4567 --server "ruby server.rb" --language dredd-hooks-php --hookfiles hooks/execution_order_hookfile.php`
+    When I run `dredd ./apiary.apib http://localhost:4567 --server "node server.js" --language php --hookfiles=./execution_order_hookfile.php`
     Then the exit status should be 0
     Then the output should contain:
       """
