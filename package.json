@@ -4,9 +4,7 @@
   },
   "private": true,
   "devDependencies": {
+    "cucumber": "^6.0.5",
     "dredd-hooks-template": "1.1.8"
   },
-  "dependencies": {
-    "why-is-node-running": "^2.1.2"
-  }
 }
