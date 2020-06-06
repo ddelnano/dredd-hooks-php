@@ -101,24 +101,17 @@ This would execute for any transactions "nested" underneath 'Admin'.  For exampl
 
 ## Tests
 
-When making a contribution it is very important to not break existing functionality.  This project uses PHPUnit for unit testing and
-uses ruby based aruba.  
+When making a contribution it is very important to not break existing functionality.  This project uses PHPUnit for unit testing and uses nodejs for Cucumber tests.  
+
+### Dependencies
+- Docker. This takes care of the php and nodejs dependencies.
  
 The test suite can be run by following these steps:
  
-1. Install PHPUnit and cucumber locally. From the project root directory run
-
-   `composer install`
-   
-   `bundle install`
-   
-2. Execute PHPUnit tests
-   
-   `vendor/bin/phpunit`
-   
-3. Run aruba/cucumber tests
-   
-   `bundle exec cucumber`
+1. Run the phpunit and Cucumber tests
+```bash
+make test
+```
    
 More details about the integration test can be found in the [dredd-hooks-template repo](https://github.com/apiaryio/dredd-hooks-template)   
 

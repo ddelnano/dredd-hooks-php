@@ -1,23 +1,15 @@
 Feature: Hook handlers
 
   Background:
-    Given I have "dredd-hooks-php" command installed
-    And I have "dredd" command installed
-    And a file named "server.rb" with:
-      """
-      require 'sinatra'
-      get '/message' do
-        "Hello World!\n\n"
-      end
-      """
-
+    Given I have dredd-hooks-php installed
+    Given I have Dredd installed
     And a file named "apiary.apib" with:
       """
       # My Api
       ## GET /message
-      + Response 200 (text/html;charset=utf-8)
-          Hello World!
+      + Response 200 (text/html)
       """
+    And a file "server.js" with a server responding on "http://localhost:4567/message" with "Hello World!"
 
   @announce
   Scenario:
@@ -30,12 +22,14 @@ Feature: Hook handlers
 
       Hooks::before('/message > GET', function(&$transaction) use ($key) {
 
-          var_dump("before hook handled");
+          fprintf(STDERR, "before hook handled");
+          flush();
       });
 
       Hooks::after('/message > GET', function(&$transaction) use ($key) {
 
-          echo "after hook handled";
+          fprintf(STDERR, "after hook handled");
+          flush();
       });
 
       Hooks::beforeValidation('/message > GET', function(&$transaction) use ($key) {
@@ -69,7 +63,7 @@ Feature: Hook handlers
       });
       """
 
-    When I run `dredd ./apiary.apib http://localhost:4567 --server "ruby server.rb" --language dredd-hooks-php --hookfiles ./hookfile.php`
+    When I run `dredd ./apiary.apib http://localhost:4567 --server "node server.js" --language php --hookfiles ./hookfile.php --loglevel debug`
     Then the exit status should be 0
     Then the output should contain:
       """

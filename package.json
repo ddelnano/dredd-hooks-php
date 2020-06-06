@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "test": "dredd-hooks-template test"
+  },
+  "private": true,
+  "devDependencies": {
+    "cucumber": "^6.0.5",
+    "dredd-hooks-template": "1.1.8"
+  }
+}

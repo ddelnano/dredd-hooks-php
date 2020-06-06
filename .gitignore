@@ -4,3 +4,4 @@ vendor/
 tmp
 examples/laravel/vendor/
 .phpcomplete_extended/
+node_modules
