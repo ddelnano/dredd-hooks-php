@@ -37,26 +37,21 @@ class Server
         $buffer = "";
 
         while ($connection = stream_socket_accept($server)) {
-
             while ($socketData = stream_socket_recvfrom($connection, self::RECV_LENGTH)) {
-
                 $buffer .= $socketData;
 
                 // determine if message terminating character is present.
                 if (strpos($buffer, self::MESSAGE_END) === false) {
-
                     continue;
                 }
 
                 $messages = [];
 
                 foreach (explode(self::MESSAGE_END, $buffer) as $data) {
-
                     $message = json_decode($data);
 
                     // if not valid json the partial message needs saved
                     if (! $message) {
-
                         $buffer = $message;
                         continue;
                     }
@@ -65,7 +60,6 @@ class Server
                 }
 
                 foreach ($messages as $message) {
-
                     $this->processMessage($message, $connection);
                 }
             }
@@ -79,30 +73,25 @@ class Server
         $uuid = $message->uuid;
 
         if ($event == "beforeEach") {
-
             $data = $this->runner->runBeforeEachHooksForTransaction($data);
             $data = $this->runner->runBeforeHooksForTransaction($data);
         }
 
         if ($event == "beforeEachValidation") {
-
             $data = $this->runner->runBeforeEachValidationHooksForTransaction($data);
             $data = $this->runner->runBeforeValidationHooksForTransaction($data);
         }
 
         if ($event == "afterEach") {
-
             $data = $this->runner->runAfterHooksForTransaction($data);
             $data = $this->runner->runAfterEachHooksForTransaction($data);
         }
 
         if ($event == "beforeAll") {
-
             $data = $this->runner->runBeforeAllHooksForTransaction($data);
         }
 
         if ($event == "afterAll") {
-
             $data = $this->runner->runAfterAllHooksForTransaction($data);
         }
 

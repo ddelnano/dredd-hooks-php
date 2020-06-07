@@ -36,7 +36,6 @@ class Runner
         $hooks = $this->getCallbacksFromMethodCall($method, $transaction);
 
         if (! is_array($hooks)) {
-            
             throw new RuntimeException("Hooks must be an array");
         }
 
@@ -56,7 +55,6 @@ class Runner
     public function getPropertyNameFromMethodCall($method)
     {
         if (! preg_match(self::METHOD_REGEX, $method, $matches)) {
-           
             throw new RuntimeException("Invalid method call {$method}");
         }
 

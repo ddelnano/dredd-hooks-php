@@ -59,7 +59,6 @@ class Hooks
         $transactionName = $callback->getName();
 
         if (! array_key_exists($transactionName, self::$beforeHooks)) {
-            
             self::$beforeHooks[$transactionName] = [];
         }
 
@@ -76,7 +75,6 @@ class Hooks
         $transactionName = $callback->getName();
 
         if (! array_key_exists($transactionName, self::$beforeValidationHooks)) {
-            
             self::$beforeValidationHooks[$transactionName] = [];
         }
 
@@ -93,7 +91,6 @@ class Hooks
         $transactionName = $callback->getName();
 
         if (! array_key_exists($transactionName, self::$afterHooks)) {
-            
             self::$afterHooks[$transactionName] = [];
         }
 
@@ -160,7 +157,6 @@ class Hooks
         $callbacks = [];
 
         if (strpos($propertyName, 'All') || strpos($propertyName, 'Each')) {
-
             return Hooks::${$propertyName};
         }
 
@@ -169,26 +165,21 @@ class Hooks
         $previous = '';
 
         foreach ($tokens as $token) {
-
             $previous .= $token . ">";
 
             if (array_key_exists($previous, Hooks::${$propertyName})) {
-
                 $hooks = Hooks::${$propertyName}[$previous];
 
                 foreach ($hooks as $hook) {
-
                     $callbacks[] = $hook;
                 }
             }
         }
 
         if (array_key_exists($name, Hooks::${$propertyName})) {
-
             $hooks = Hooks::${$propertyName}[$name];
 
             foreach ($hooks as $hook) {
-
                 $callbacks[] = $hook;
             }
         }
@@ -210,7 +201,6 @@ class Hooks
 
                 // require all files except dredd-hooks-php
                 if (basename($file) != 'dredd-hooks-php') {
-
                     require_once $file;
                 }
             });
