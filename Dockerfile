@@ -7,6 +7,8 @@ RUN apt-get update \
     npm \
     git \
     net-tools \
+    zip \
+    unzip \
     && wget https://getcomposer.org/installer \
     && chmod +x installer \
     && php installer --install-dir=/usr/local/bin/ --filename=composer \

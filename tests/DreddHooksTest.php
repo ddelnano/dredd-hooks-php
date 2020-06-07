@@ -1,11 +1,12 @@
 <?php
 
 use Dredd\Hooks;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class DreddHooksTest
  */
-class DreddHooksTest extends PHPUnit_Framework_TestCase
+class DreddHooksTest extends TestCase
 {
     /**
      * @var string
@@ -15,7 +16,7 @@ class DreddHooksTest extends PHPUnit_Framework_TestCase
     /**
      *
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         Hooks::$beforeAllHooks = [];
         Hooks::$afterAllHooks = [];

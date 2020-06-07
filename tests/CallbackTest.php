@@ -1,11 +1,12 @@
 <?php
 
 use Dredd\Callback;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class CallbackTest
  */
-class CallbackTest extends PHPUnit_Framework_TestCase
+class CallbackTest extends TestCase
 {
     /**
      * @test
@@ -47,10 +48,10 @@ class CallbackTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \RuntimeException
      */
     public function it_prevents_multiple_wildcard_names()
     {
+        $this->expectException(\RuntimeException::class);
         $name = 'Wrong > * > Name > *';
         $func = function(&$transaction) {};
         $callback = new Callback($func, $name);

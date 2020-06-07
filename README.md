@@ -39,7 +39,7 @@ Hooks::beforeAll(function(&$transaction) {
 
 #### Requirements
 
-- Must have php version 5.6 or greater. Older versions of php may work but they are untested.
+- Must have php version 7.2 or greater. Older versions of php may work but they are untested.
 
 `dredd-hooks-php` can be easily installed through the use of [Composer](https://getcomposer.org/).
 
