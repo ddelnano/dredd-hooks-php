@@ -59,12 +59,10 @@ class Callback
         $hasWildcard = strpos($name, "*") ? true : false;
 
         if ($hasWildcard) {
-
             $tokens = explode("*", $name);
 
             // There should not be more than 1 wildcard per name.
             if (count($tokens) > 2) {
-                
                 throw new RuntimeException("Wildcard name should not contain more than 1 wildcard");
             }
 
