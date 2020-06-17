@@ -1,6 +1,6 @@
 <?php
 
-
+use Dredd\DataObjects\Transaction;
 use Dredd\Hooks;
 use PHPUnit\Framework\TestCase;
 
@@ -130,7 +130,7 @@ class DreddRunnerTest extends TestCase
     {
         $transactionName = 'transaction';
 
-        $transaction = new stdClass();
+        $transaction = new Transaction(new stdClass());
         $transaction->name = $transactionName;
 
         Hooks::before($transactionName, function($transaction) {
@@ -149,7 +149,7 @@ class DreddRunnerTest extends TestCase
     {
         $transactionName = 'transaction';
 
-        $transaction = new stdClass();
+        $transaction = new Transaction(new stdClass());
         $transaction->name = $transactionName;
 
         Hooks::beforeEach(function($transaction) {
@@ -168,11 +168,11 @@ class DreddRunnerTest extends TestCase
     {
         $transactionName = 'transaction';
 
-        $transaction = new stdClass();
+        $transaction = new Transaction(new stdClass());
         $transaction->name = $transactionName;
         $transaction->fail = false;
 
-        Hooks::before($transactionName, function(&$transaction) {
+        Hooks::before($transactionName, function(Transaction &$transaction) {
             $transaction->fail = true;
         });
 
@@ -191,11 +191,11 @@ class DreddRunnerTest extends TestCase
     {
         $transactionName = 'transaction';
 
-        $transaction = new stdClass();
+        $transaction = new Transaction(new stdClass());
         $transaction->name = $transactionName;
         $transaction->fail = false;
 
-        Hooks::beforeEach(function(&$transaction) {
+        Hooks::beforeEach(function(Transaction &$transaction) {
             $transaction->fail = true;
         });
 
@@ -214,10 +214,10 @@ class DreddRunnerTest extends TestCase
         $transactionName  = 'Admin > admin logs in';
         $wildcardName = 'Admin > *';
 
-        $transaction = new stdClass();
+        $transaction = new Transaction(new stdClass());
         $transaction->name = $transactionName;
 
-        Hooks::before($wildcardName, function(&$transaction)
+        Hooks::before($wildcardName, function(Transaction &$transaction)
         {
             echo 'yay this is also called';
         });
@@ -234,11 +234,11 @@ class DreddRunnerTest extends TestCase
     {
         $wildcardName     = 'Admin > admin logs in > *';
 
-        $transaction = new stdClass();
+        $transaction = new Transaction(new stdClass());
         $transactionName  = 'Admin > admin logs in > another event';
         $transaction->name = $transactionName;
 
-        Hooks::before($wildcardName, function(&$transaction)
+        Hooks::before($wildcardName, function(Transaction &$transaction)
         {
             echo 'yay this is also called';
         });
