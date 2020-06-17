@@ -26,7 +26,7 @@ Feature: Failing a transaction
           flush();
       });
       """
-    When I run `dredd ./apiary.apib http://localhost:4567 --server "nodejs server.js" --language php --hookfiles failedhook.php --loglevel debug`
+    When I run `dredd ./apiary.apib http://localhost:4567 --server "node server.js" --language php --hookfiles failedhook.php --loglevel debug`
     Then the exit status should be 1
     And the output should contain:
       """
