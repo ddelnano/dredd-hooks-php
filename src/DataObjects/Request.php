@@ -19,7 +19,7 @@ class Request
 
     /**
      * Keys are HTTP header names, values are HTTP header contents
-     * @var object $headers
+     * @var array<string,string> $headers
      */
     public $headers;
 
@@ -37,7 +37,7 @@ class Request
     {
         $this->body = $request->body;
         $this->bodyEncoding = $request->bodyEncoding;
-        $this->headers = $request->headers;
+        $this->headers = (array) $request->headers;
         $this->uri = $request->uri;
         $this->method = $request->method;
     }
