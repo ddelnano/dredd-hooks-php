@@ -2,6 +2,8 @@
 
 namespace Dredd\DataObjects;
 
+use stdClass;
+
 /**
  * Transaction object is passed as a first argument to
  *  {@link https://dredd.org/en/latest/hooks/index.html#hooks hook functions}
@@ -104,8 +106,10 @@ class Transaction
         $this->port = $transaction->port;
         $this->protocol = $transaction->protocol;
         $this->fullPath = $transaction->fullPath;
-        $this->skip = $transaction->skip;
-        $this->fail = $transaction->fail;
+        $this->skip = $transaction->skip ?? false;
+        $this->fail = $transaction->fail ?? false;
+        $this->errors = $transaction->errors ?? new stdClass();
+        $this->results = $transaction->results ?? new stdClass();
         $this->origin = new Origin($transaction->origin);
         $this->request = new Request($transaction->request);
         $this->expected = new ExpectedResponse($transaction->expected);
