@@ -10,7 +10,7 @@ class ExpectedResponse
     /**
      * Keys are HTTP header names, values are HTTP header contents
      *
-     * @var object
+     * @var array<string,string>
      */
     public $headers;
 
@@ -27,7 +27,7 @@ class ExpectedResponse
     public function __construct($expected)
     {
         $this->statusCode = $expected->statusCode;
-        $this->headers = $expected->headers;
+        $this->headers = (array) $expected->headers;
         $this->body = $expected->body;
         $this->bodySchema = $expected->bodySchema;
     }
