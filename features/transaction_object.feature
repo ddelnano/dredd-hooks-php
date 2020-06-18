@@ -13,22 +13,20 @@ Feature: Failing a transaction
 
   @announce
   Scenario:
-    Given a file named "failedhook.php" with:
+    Given a file named "hook_transaction_object.php" with:
       """
       <?php
 
+      use Dredd\DataObjects\Transaction;
       use Dredd\Hooks;
 
-      Hooks::before("/message > GET", function(&$transaction) {
+      Hooks::beforeEach(function(Transaction &$transaction) {
 
-          $transaction->fail = true;
-          echo "Yay! Failed!";
-          flush();
+          echo 'Transaction object';
       });
       """
-    When I run `dredd ./apiary.apib http://localhost:4567 --server "node server.js" --language php --hookfiles failedhook.php --loglevel debug`
-    Then the exit status should be 1
-    And the output should contain:
+    When I run `dredd ./apiary.apib http://localhost:4567 --server "node server.js" --language php --hookfiles hook_transaction_object.php --loglevel debug`
+    Then the output should contain:
       """
-      Yay! Failed!
+      Transaction object
       """
