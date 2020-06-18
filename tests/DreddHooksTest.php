@@ -1,5 +1,6 @@
 <?php
 
+use Dredd\DataObjects\Transaction;
 use Dredd\Hooks;
 use PHPUnit\Framework\TestCase;
 
@@ -116,5 +117,50 @@ class DreddHooksTest extends TestCase
         $hooks = Hooks::getCallbacksForName('beforeHooks', $transaction);
         $this->assertCount(1, $hooks);
         $this->assertTrue(is_a($hooks[0], $this->className), sprintf("Expected %s received %s", $this->className, get_class($hooks[0])));
+    }
+
+    public function it_can_pass_a_transaction_object()
+    {
+        $transaction = new Transaction((object)[
+            'id' => 'test',
+            'name' => 'test',
+            'host' => '127.0.0.1',
+            'port' => '12345',
+            'protocol' => 'http',
+            'fullPath' => 'http://127.0.0.1:12345/path',
+            'request' => [
+                'body' => '{}',
+                'bodyEncoding' => 'utf8',
+                'headers' => [],
+                'uri' => 'http://127.0.0.1:12345/path',
+                'method' => 'GET',
+            ],
+            'origin' => [
+                'filename' => 'test.apib',
+                'apiName' => 'test',
+                'resourceGroupName' => '',
+                'resourceName' => '',
+                'actionName' => '',
+                'exampleName' => '',
+            ],
+            'expected' => [
+                'statusCode' => 200,
+                'headers' => [],
+                'body' => '{}',
+                'bodySchema' => new stdClass(),
+            ],
+            'real' => [
+                'statusCode' => 200,
+                'headers' => [],
+                'body' => '{}',
+                'bodyEncoding' => 'utf8',
+            ],
+        ]);
+
+        Hooks::before('Admin > *', function(&$transaction) {
+            $this->assertInstanceOf(Transaction::class, $transaction);
+        });
+
+        $hooks = Hooks::getCallbacksForName('beforeHooks', $transaction);
     }
 }
