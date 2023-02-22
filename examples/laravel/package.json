@@ -6,7 +6,7 @@
   "dependencies": {
     "laravel-elixir": "^4.0.0",
     "dredd": "^5.0.0",
-    "bootstrap-sass": "^3.0.0"
+    "bootstrap-sass": "^3.4.1"
   },
   "scripts": {
     "dredd": "dredd ./laravel.apib http://localhost --language vendor/bin/dredd-hooks-php --hookfiles tests/dredd/hooks/hookfile.php"
